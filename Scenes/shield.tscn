@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dja1kerk6u8f0"]
 
-[ext_resource type="Texture2D" uid="uid://cr7sv5hdsf6uy" path="res://icon.svg" id="1_4wau2"]
-[ext_resource type="Script" path="res://shieldscript.gd" id="1_u18gv"]
+[ext_resource type="Texture2D" uid="uid://cr7sv5hdsf6uy" path="res://Sprites/icon.svg" id="1_4wau2"]
+[ext_resource type="Script" path="res://Scripts/shieldscript.gd" id="1_u18gv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k7x3q"]
 size = Vector2(135, 133)
@@ -11,6 +11,7 @@ disable_mode = 2
 script = ExtResource("1_u18gv")
 
 [node name="ShieldSprite" type="Sprite2D" parent="."]
+texture_filter = 1
 scale = Vector2(1.05469, 1.05469)
 texture = ExtResource("1_4wau2")
 

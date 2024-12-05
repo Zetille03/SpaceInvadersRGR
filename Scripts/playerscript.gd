@@ -1,13 +1,18 @@
 extends CharacterBody2D
 
 @export var speed = 400
+@export var bullet_timeout = 0.5
+var timeout_b = 0
 @export var bulletscene: PackedScene
 
-func get_input():
+func get_input(delta):
 	var input_direction = Vector2(Input.get_axis("left","right"),0)
 	velocity = input_direction * speed
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") && timeout_b<=0:
+		timeout_b = bullet_timeout
 		shoot()
+	elif timeout_b>=0:
+		timeout_b -= delta 
 
 func shoot():
 	var b = bulletscene.instantiate()
@@ -16,5 +21,5 @@ func shoot():
 	
 
 func _physics_process(delta: float) -> void:
-	get_input()
+	get_input(delta)
 	move_and_slide()
