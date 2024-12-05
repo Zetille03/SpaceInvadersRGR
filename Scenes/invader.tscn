@@ -1,0 +1,118 @@
+[gd_scene load_steps=17 format=3 uid="uid://b8v1nllsyhm6d"]
+
+[ext_resource type="Script" path="res://Scripts/invader.gd" id="1_ne1uj"]
+[ext_resource type="Texture2D" uid="uid://7q3e3svns2gw" path="res://Sprites/Invaders/Invader1-1.png" id="1_nhsqc"]
+[ext_resource type="Texture2D" uid="uid://cjjw21frvgyo" path="res://Sprites/Invaders/Invader1-2.png" id="3_huyfx"]
+[ext_resource type="Texture2D" uid="uid://23hcyw1pmkl1" path="res://Sprites/Invaders/Invader2-1.png" id="4_uf4i4"]
+[ext_resource type="Texture2D" uid="uid://s10otcftmdh1" path="res://Sprites/Invaders/Invader2-2.png" id="5_3bjef"]
+[ext_resource type="Texture2D" uid="uid://b180qpqcuke2k" path="res://Sprites/Invaders/Invader3-1.png" id="6_arb0a"]
+[ext_resource type="Texture2D" uid="uid://0v66s84m85sv" path="res://Sprites/Invaders/Invader3-2.png" id="7_p0whk"]
+[ext_resource type="Texture2D" uid="uid://cpvuqtxar4y7p" path="res://Sprites/Invaders/Invader-explosion-1.png" id="8_nhcqo"]
+[ext_resource type="Texture2D" uid="uid://cqukultrocqb3" path="res://Sprites/Invaders/Invader-explosion-2.png" id="9_fpt8j"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0pra2"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_c8ohk"]
+resource_name = "move_1"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_nhsqc"), ExtResource("3_huyfx")]
+}
+
+[sub_resource type="Animation" id="Animation_mnox6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_nhsqc")]
+}
+
+[sub_resource type="Animation" id="Animation_gkmj4"]
+resource_name = "move_2"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("4_uf4i4"), ExtResource("5_3bjef")]
+}
+
+[sub_resource type="Animation" id="Animation_6jneo"]
+resource_name = "move_3"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("6_arb0a"), ExtResource("7_p0whk")]
+}
+
+[sub_resource type="Animation" id="Animation_4rfxg"]
+resource_name = "destroy"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("8_nhcqo"), ExtResource("9_fpt8j")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mbknw"]
+_data = {
+"RESET": SubResource("Animation_mnox6"),
+"destroy": SubResource("Animation_4rfxg"),
+"move_1": SubResource("Animation_c8ohk"),
+"move_2": SubResource("Animation_gkmj4"),
+"move_3": SubResource("Animation_6jneo")
+}
+
+[node name="Invader" type="Area2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_ne1uj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_nhsqc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0pra2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mbknw")
+}
