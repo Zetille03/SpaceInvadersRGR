@@ -13,6 +13,37 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0pra2"]
 radius = 4.0
 
+[sub_resource type="Animation" id="Animation_mnox6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_nhsqc")]
+}
+
+[sub_resource type="Animation" id="Animation_4rfxg"]
+resource_name = "destroy"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("8_nhcqo"), ExtResource("9_fpt8j")]
+}
+
 [sub_resource type="Animation" id="Animation_c8ohk"]
 resource_name = "move_1"
 loop_mode = 1
@@ -27,21 +58,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("1_nhsqc"), ExtResource("3_huyfx")]
-}
-
-[sub_resource type="Animation" id="Animation_mnox6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_nhsqc")]
 }
 
 [sub_resource type="Animation" id="Animation_gkmj4"]
@@ -74,22 +90,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("6_arb0a"), ExtResource("7_p0whk")]
-}
-
-[sub_resource type="Animation" id="Animation_4rfxg"]
-resource_name = "destroy"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("8_nhcqo"), ExtResource("9_fpt8j")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mbknw"]

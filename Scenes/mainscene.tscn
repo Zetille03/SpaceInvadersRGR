@@ -1,15 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://bskkakyv55s7x"]
+[gd_scene load_steps=6 format=3 uid="uid://bskkakyv55s7x"]
 
 [ext_resource type="PackedScene" uid="uid://cf8towmm8yv5m" path="res://Scenes/player.tscn" id="1_tv3ja"]
 [ext_resource type="PackedScene" uid="uid://dkaurk5n746k4" path="res://Scenes/bullet.tscn" id="2_8syn7"]
 [ext_resource type="PackedScene" uid="uid://b0aowou2grys7" path="res://Scenes/bunker.tscn" id="3_mdbl4"]
 [ext_resource type="PackedScene" uid="uid://ce0ntxftp0e4y" path="res://Scenes/invader_spawner.tscn" id="4_cqkm7"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2kger"]
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_tv3ja")]
-position = Vector2(909, 966)
+position = Vector2(898, 967)
+disable_mode = 2
 bulletscene = ExtResource("2_8syn7")
+min_x = 496
+max_x = 1362
 
 [node name="Bunker" parent="." instance=ExtResource("3_mdbl4")]
 position = Vector2(605, 803)
@@ -22,3 +27,30 @@ position = Vector2(1250, 804)
 
 [node name="InvaderSpawner" parent="." instance=ExtResource("4_cqkm7")]
 position = Vector2(686, 263)
+
+[node name="Paredes" type="Node" parent="."]
+
+[node name="LeftWall" type="Area2D" parent="Paredes"]
+position = Vector2(414, 538)
+scale = Vector2(-2.35296, 59.4967)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/LeftWall"]
+shape = SubResource("RectangleShape2D_2kger")
+
+[node name="RightWall" type="Area2D" parent="Paredes"]
+position = Vector2(1445, 538)
+scale = Vector2(-2.35296, 59.4967)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/RightWall"]
+shape = SubResource("RectangleShape2D_2kger")
+
+[node name="BottomWall" type="Area2D" parent="Paredes"]
+position = Vector2(928, 967)
+rotation = 1.5708
+scale = Vector2(-5.79156, 48.632)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/BottomWall"]
+shape = SubResource("RectangleShape2D_2kger")
+
+[connection signal="area_entered" from="Paredes/LeftWall" to="InvaderSpawner" method="_on_left_wall_area_entered"]
+[connection signal="area_entered" from="Paredes/RightWall" to="InvaderSpawner" method="_on_right_wall_area_entered"]

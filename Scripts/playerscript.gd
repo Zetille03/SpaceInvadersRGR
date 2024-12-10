@@ -4,6 +4,8 @@ extends CharacterBody2D
 @export var bullet_timeout = 0.5
 var timeout_b = 0
 @export var bulletscene: PackedScene
+@export var min_x = -500
+@export var max_x = 500 
 
 func get_input(delta):
 	var input_direction = Vector2(Input.get_axis("left","right"),0)
@@ -23,3 +25,8 @@ func shoot():
 func _physics_process(delta: float) -> void:
 	get_input(delta)
 	move_and_slide()
+	
+	if position.x < min_x:
+		position.x = min_x
+	elif position.x > max_x:
+		position.x = max_x
