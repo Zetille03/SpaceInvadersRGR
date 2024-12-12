@@ -54,7 +54,7 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(-0.0333333, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("1_nhsqc"), ExtResource("3_huyfx")]
