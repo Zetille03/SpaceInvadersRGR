@@ -9,4 +9,7 @@ func _physics_process(delta):
 
 
 func _on_area_entered(area: Area2D) -> void:
+	if(area is InvaderShot):
+		area.queue_free()
 	queue_free()
+	

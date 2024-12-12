@@ -1,20 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://bskkakyv55s7x"]
+[gd_scene load_steps=9 format=3 uid="uid://bskkakyv55s7x"]
 
 [ext_resource type="PackedScene" uid="uid://cf8towmm8yv5m" path="res://Scenes/player.tscn" id="1_tv3ja"]
-[ext_resource type="PackedScene" uid="uid://dkaurk5n746k4" path="res://Scenes/bullet.tscn" id="2_8syn7"]
 [ext_resource type="PackedScene" uid="uid://b0aowou2grys7" path="res://Scenes/bunker.tscn" id="3_mdbl4"]
 [ext_resource type="PackedScene" uid="uid://ce0ntxftp0e4y" path="res://Scenes/invader_spawner.tscn" id="4_cqkm7"]
+[ext_resource type="Script" path="res://Scripts/vida_manager.gd" id="6_1ptxg"]
+[ext_resource type="PackedScene" uid="uid://dsjerui1v2v3d" path="res://Scenes/ui.tscn" id="6_7wjd6"]
+[ext_resource type="Script" path="res://Scripts/contador_puntos.gd" id="6_x75gp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2kger"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5l3a1"]
+size = Vector2(16, 117)
+
+[node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_tv3ja")]
-position = Vector2(898, 967)
+position = Vector2(928, 967)
 disable_mode = 2
-bulletscene = ExtResource("2_8syn7")
-min_x = 496
-max_x = 1362
 
 [node name="Bunker" parent="." instance=ExtResource("3_mdbl4")]
 position = Vector2(605, 803)
@@ -31,14 +33,14 @@ position = Vector2(686, 263)
 [node name="Paredes" type="Node" parent="."]
 
 [node name="LeftWall" type="Area2D" parent="Paredes"]
-position = Vector2(414, 538)
+position = Vector2(395, 538)
 scale = Vector2(-2.35296, 59.4967)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/LeftWall"]
 shape = SubResource("RectangleShape2D_2kger")
 
 [node name="RightWall" type="Area2D" parent="Paredes"]
-position = Vector2(1445, 538)
+position = Vector2(1470, 537)
 scale = Vector2(-2.35296, 59.4967)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/RightWall"]
@@ -54,5 +56,30 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paredes/BottomWall"]
 shape = SubResource("RectangleShape2D_2kger")
 
+[node name="VidaManager" type="Node" parent="." node_paths=PackedStringArray("bottom_wall")]
+script = ExtResource("6_1ptxg")
+bottom_wall = NodePath("../Paredes/BottomWall")
+
+[node name="LimiteOeste" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimiteOeste"]
+position = Vector2(430, 970)
+shape = SubResource("RectangleShape2D_5l3a1")
+
+[node name="LimiteEste" type="StaticBody2D" parent="."]
+position = Vector2(999, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimiteEste"]
+position = Vector2(430, 970)
+shape = SubResource("RectangleShape2D_5l3a1")
+
+[node name="ContadorPuntos" type="Node" parent="."]
+script = ExtResource("6_x75gp")
+
+[node name="UI" parent="." node_paths=PackedStringArray("invader_spawner", "vida_manager") instance=ExtResource("6_7wjd6")]
+invader_spawner = NodePath("../InvaderSpawner")
+vida_manager = NodePath("../VidaManager")
+
 [connection signal="area_entered" from="Paredes/LeftWall" to="InvaderSpawner" method="_on_left_wall_area_entered"]
 [connection signal="area_entered" from="Paredes/RightWall" to="InvaderSpawner" method="_on_right_wall_area_entered"]
+[connection signal="area_entered" from="Paredes/BottomWall" to="InvaderSpawner" method="_on_bottom_wall_area_entered"]

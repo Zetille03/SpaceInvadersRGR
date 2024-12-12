@@ -2,14 +2,19 @@ extends CharacterBody2D
 
 class_name Player
 
+
 @export var speed = 400
 @export var bullet_timeout = 0.5
+var is_alive: bool
 var timeout_b = 0
-@export var bulletscene: PackedScene
-@export var min_x = -500
-@export var max_x = 500 
-
+var bulletscene: PackedScene
 @onready var animation_player = $AnimationPlayer
+
+signal player_destroyed
+
+func _ready() -> void:
+	bulletscene = preload("res://Scenes/bullet.tscn")
+	is_alive = true
 
 func get_input(delta):
 	var input_direction = Vector2(Input.get_axis("left","right"),0)
@@ -22,22 +27,27 @@ func get_input(delta):
 
 func shoot():
 	print("shoot")
-	var b = bulletscene.instantiate()
-	owner.add_child(b)
-	b.transform = global_transform
+	if is_alive:
+		var b = bulletscene.instantiate()
+		get_tree().root.get_node("Main").add_child(b)
+		b.transform = global_transform
 	
 
 func _physics_process(delta: float) -> void:
 	get_input(delta)
 	move_and_slide()
 	
-	if position.x < min_x:
-		position.x = min_x
-	elif position.x > max_x:
-		position.x = max_x
 
 
 func on_player_destroyed():
+	is_alive = false
 	speed = 0
 	animation_player.play("destroy")
 	
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "destroy":
+		await get_tree().create_timer(1).timeout
+		player_destroyed.emit()
+		queue_free()

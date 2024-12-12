@@ -1,14 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0aowou2grys7"]
+[gd_scene load_steps=9 format=3 uid="uid://b0aowou2grys7"]
 
 [ext_resource type="Script" path="res://Scripts/shield.gd" id="1_cq43y"]
+[ext_resource type="Script" path="res://Scripts/bunkergroup.gd" id="1_eiks0"]
 [ext_resource type="Texture2D" uid="uid://cr7sv5hdsf6uy" path="res://Sprites/icon.svg" id="1_npv62"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pnl0c"]
 size = Vector2(32.75, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1x5i"]
+size = Vector2(66, 65)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvi4l"]
+size = Vector2(66, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsll5"]
+size = Vector2(66, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yb7kn"]
+size = Vector2(66, 65)
+
 [node name="Bunker" type="Node2D"]
 
-[node name="TopLeftBunker" type="Node2D" parent="."]
+[node name="TopLeftBunker" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource("1_eiks0")
 
 [node name="TopLeft" type="Area2D" parent="TopLeftBunker"]
 script = ExtResource("1_cq43y")
@@ -62,8 +77,14 @@ texture = ExtResource("1_npv62")
 position = Vector2(-50, -16)
 shape = SubResource("RectangleShape2D_pnl0c")
 
-[node name="TopRightBunker" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopLeftBunker"]
+position = Vector2(33, -32.5)
+shape = SubResource("RectangleShape2D_v1x5i")
+
+[node name="TopRightBunker" type="Area2D" parent="."]
 position = Vector2(67, 0)
+collision_layer = 2
+script = ExtResource("1_eiks0")
 
 [node name="TopLeft" type="Area2D" parent="TopRightBunker"]
 script = ExtResource("1_cq43y")
@@ -117,8 +138,14 @@ texture = ExtResource("1_npv62")
 position = Vector2(-50, -16)
 shape = SubResource("RectangleShape2D_pnl0c")
 
-[node name="BottomRightBunker" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopRightBunker"]
+position = Vector2(-101, -32)
+shape = SubResource("RectangleShape2D_hvi4l")
+
+[node name="BottomRightBunker" type="Area2D" parent="."]
 position = Vector2(67, 66)
+collision_layer = 2
+script = ExtResource("1_eiks0")
 
 [node name="TopLeft" type="Area2D" parent="BottomRightBunker"]
 script = ExtResource("1_cq43y")
@@ -172,8 +199,14 @@ texture = ExtResource("1_npv62")
 position = Vector2(-50, -16)
 shape = SubResource("RectangleShape2D_pnl0c")
 
-[node name="BottomLeftBunker" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomRightBunker"]
+position = Vector2(-101, -33)
+shape = SubResource("RectangleShape2D_qsll5")
+
+[node name="BottomLeftBunker" type="Area2D" parent="."]
 position = Vector2(0, 66)
+collision_layer = 2
+script = ExtResource("1_eiks0")
 
 [node name="TopLeft" type="Area2D" parent="BottomLeftBunker"]
 script = ExtResource("1_cq43y")
@@ -226,3 +259,7 @@ texture = ExtResource("1_npv62")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomLeftBunker/BottomLeft"]
 position = Vector2(-50, -16)
 shape = SubResource("RectangleShape2D_pnl0c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomLeftBunker"]
+position = Vector2(33, -32.5)
+shape = SubResource("RectangleShape2D_yb7kn")
