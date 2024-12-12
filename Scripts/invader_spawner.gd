@@ -11,21 +11,21 @@ const START_Y_POSITION = -50
 const INVADERS_POSITION_X_INCREMENT = 10
 const INVADERS_POSITION_Y_INCREMENT = 20
 
-var invader_scene
+var invader_scene= preload("res://Scenes/invader.tscn")
+var invader_shot_scene = preload("res://Scenes/invader_shot.tscn")
 var movement_direction = 1
 
 @onready var movement_timer = $MovementTimer
-
+@onready var shot_timer = $ShotTimer
 
 func _ready():
 	movement_timer.timeout.connect(move_invaders)
+	shot_timer.timeout.connect(on_invader_shot)
 	
 	var invader_1_res = preload("res://Resources/invader_1.tres")
 	var invader_2_res = preload("res://Resources/invader_2.tres")
 	var invader_3_res = preload("res://Resources/invader_3.tres")
 	
-	invader_scene = preload("res://Scenes/invader.tscn")
-
 	var invader_config
 	for row in ROWS:
 		
@@ -56,6 +56,13 @@ func spawn_invader(invader_config, spawn_position:Vector2):
 
 func move_invaders():
 	position.x += INVADERS_POSITION_X_INCREMENT * movement_direction
+
+func on_invader_shot():
+	var random_child_position = get_children().filter(func (child): return child is Invader).map(func (invader): return invader.global_position).pick_random()
+
+	var invader_shot = invader_shot_scene.instantiate() as InvaderShot
+	invader_shot.global_position = random_child_position
+	get_tree().root.add_child(invader_shot)
 
 func _on_left_wall_area_entered(area: Area2D) -> void:
 	if movement_direction == -1:
